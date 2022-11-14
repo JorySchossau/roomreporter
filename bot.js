@@ -1,15 +1,12 @@
 const puppeteer = require('puppeteer');
-
 const { WebClient } = require('@slack/web-api');
+
 const token = process.env.SLACK_TOKEN;
-const web = new WebClient(token);
-
-var express    = require('express'),
-    app        = express();
-
 const channelID = process.env.SLACK_CHANNEL;
+const chromePath = process.env.CHROME_PATH;
+const jitsiRoom = process.env.JITSI_ROOM;
 
-app.use(express.static('assets'));
+const web = new WebClient(token);
 
 var names = [] // active users in hangout
 var priorNames = [] // previous value, to see what changed
@@ -77,7 +74,7 @@ async function joinRoom(room, botname) {
   const browser = await puppeteer.launch({
       args: chromeArgs,
       handleSIGINT: false,
-      executablePath: '/home/jory/srcprogs/chrome/opt/google/chrome/google-chrome',
+      executablePath: chromePath,
       ignoreDefaultArgs: ['--mute-audio'],
   });
  
@@ -125,21 +122,13 @@ async function joinRoom(room, botname) {
   }
 }
 
-const PORT = 3000;
-
-// not sure if this route is necessary
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
-app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
 
 // try to join room until success (it fails sometimes)
 var ranOkay = false
 while (ranOkay == false) {
   try {
     console.log("trying to join room")
-    joinRoom(name='labhangoutlabtest',botname='RoomBot');
+    joinRoom(name=jitsiRoom,botname='RoomBot');
     ranOkay = true
   } catch (TypeError) {
     ranOkay = false
