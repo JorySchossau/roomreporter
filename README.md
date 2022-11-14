@@ -2,6 +2,8 @@
 
 Sits in a meet.jit.si room and reports participants to a slack channel.
 
-Requires:
-* slack bot token as SLACK_TOKEN
-* slack channel id (the name) as SLACK_CHANNEL
+Requires env vars:
+* SLACK_TOKEN: slack bot token
+* SLACK_CHANNEL: slack channel id (the name)
+* JITSI_ROOM: jitsi room id (the name)
+* CHROME_PATH: path to a chrome browser binary
