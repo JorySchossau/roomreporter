@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "@slack/web-api": "^6.8.0",
-    "express": "^4.18.2",
     "puppeteer": "^19.2.2"
   }
 }
